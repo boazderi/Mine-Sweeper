@@ -1,166 +1,89 @@
 'use strict'
 
 // Model
-
+var gNums = []
 var gBoardSize = 0
-var gBoard
-const FLAG = '🚩'
-const MINE = '💣'
-var gLevel = {
-    SIZE: 4,
-    MINES: 2
-}
-// clock model
-var gStartTimer
-var gClock
 
 
-// clock elements
-const gElClock = document.querySelector('.clock')
-const gElSeconds = document.querySelector('.seconds')
+var gCurrNum = 1
+const gGameSound = new Audio('sounds/play-sound.wav')
+const gWinningSound = new Audio('sounds/winning-sound.wav')
+// Clock model
+var gWholeTimer
+var gStartTimer 
 
-var gGame = {
-    isOn: false,
-    shownCount: 0,
-    markedCount: 0,
-    secsPassed: 0
-}
+// Clock elements 
+var gElClock = document.querySelector('.clock')
+var gElSeconds = document.querySelector('.seconds')
+var gElMilisecs = document.querySelector('.milisecs')
+var gElWin = document.querySelector('.win')
 
-function initGame(boardSize, mines) {
-    gLevel = {
-        SIZE: boardSize,
-        MINES: mines
-    };
-    console.log('hello');
-    buildBoard(gLevel)
-    console.table(gBoard)
-    gGame.isOn = true
-    // disable right click - don't show the 'context menu' window
-    var ellBoard = document.querySelector('.board-container')
-    ellBoard.addEventListener("contextmenu", e => e.preventDefault())
-
-}
-
-
-function buildBoard(level) {
+function createBoard(boardSize) {
     //create nums matrix in the table, and array of numbers
-    var boardSize = level.SIZE
-    var minesCount = level.MINES
-    gBoard = []
+    gBoardSize = boardSize
+    var htmlStr = ''
+
+    for (var i = 1; i <= boardSize ** 2; i++) {
+        gNums.push(i)
+    }
 
     for (var i = 0; i < boardSize; i++) {
-        gBoard[i] = []
-        var row = gBoard[i]
-
+        htmlStr += '<tr>'
         for (var j = 0; j < boardSize; j++) {
-            var cell = {
-                isMine: false,
-                minesAroundCount: 0,
-                isShown: false,
-                isMarked: false
-            }
-            if (i < 1 && j < minesCount) cell.isMine = true
-            row[j] = cell
+            var numCell = gNums.splice(getRandomInteger(0, gNums.length - 1), 1)
+            htmlStr += `<td class="btn${numCell}" onclick="cellClicked(${numCell})">${numCell}</td>`
         }
+        htmlStr += '</tr>'
     }
-    setMinesNegsCount(gBoard)
-    renderBoard(gBoard)
+    var elTable = document.querySelector('table')
+    elTable.innerHTML = htmlStr
 }
 
-function setMinesNegsCount(board) {
+function cellClicked(clickedNum) {
+    // add an boolean before run the clock
+    if (gCurrNum === 1) {
+        gStartTimer = Date.now()
+        runClock()
+        gGameSound.play()
+    }
 
-    for (var i = 0; i < board.length; i++) {
-        for (var j = 0; j < board.length; j++) {
-            if (!board[i][j].isMine) {
-                var cellMinesNegs = countActiveNegs(board, i, j)
-                board[i][j].minesAroundCount = cellMinesNegs ? cellMinesNegs : 0
-                // console.log('cellMinesNegs',cellMinesNegs);
-            }
-        }
+    if (clickedNum === gCurrNum) {
+        gCurrNum++
+        var currCell = document.querySelector(`.btn${clickedNum}`)
+        currCell.style.background = "gray"
+        currCell.style.color = "white"
     }
 }
 
-function cellClicked(elCell, i, j, ev) {
-    // start the clock if first click
-    if (gGame.shownCount === 0 && gGame.markedCount === 0) runClock()
-    // update the model
-    var currCell = gBoard[i][j]
-    if (ev.button === 2) {
-        currCell.isMarked = true
-        cellMarked(elCell)
-    } else {
-        // console.log('elCell.button', elCell);
-        currCell.isShown = true
+function runClock() {
+    gElClock.classList.remove('hide')
 
-        // update the dom
-        if (currCell.isMine) {
-            elCell.innerText = MINE
-            gGame.isOn = false
-        } else if (!currCell.minesAroundCount) {
-            gGame.shownCount++
-            expandShown(gBoard, elCell, i, j)
-            elCell.innerText = currCell.minesAroundCount
+    var clock = setInterval(function () {
+        gWholeTimer = Date.now() - gStartTimer
+        gElMilisecs.innerText = ((gWholeTimer % 1000) + '').padStart(3, '0')
+        gElSeconds.innerText = (Math.floor(gWholeTimer / 1000) + '')
+            .padStart(2, '0')
+
+        if (gCurrNum - 1 === gBoardSize ** 2) {
+            gElWin.classList.remove('hide')
+            var elPlayAgain = document.querySelector('.play-again')
+            elPlayAgain.classList.remove('hide')
+            gGameSound.pause()
+            gWinningSound.play()
+            clearInterval(clock)
         }
-        // if we have an number
-        else {
-            gGame.shownCount++
-            elCell.innerText = currCell.minesAroundCount
-        }
-    }
-    checkGameOver()
+    }, 29)
 }
 
-function cellMarked(elCell) {
-    gGame.markedCount++
-    elCell.innerText = FLAG
+
+function PlayAgain(elPlayAgain) {
+    gCurrNum = 1
+    elPlayAgain.classList.add('hide')
+    gWinningSound.pause()
+    createBoard(gBoardSize)
+    gElWin.classList.add('hide')
+    gWholeTimer = 0
 }
-
-function expandShown(board, elCell, i, j) {
-    console.log('expandShown');
-    var expendsAgain = []
-    for (var row = i - 1; row <= i + 1; row++) {
-        if (row < 0 || row >= board.length) continue
-        var currRow = board[row]
-
-        for (var coll = j - 1; coll <= j + 1; coll++) {
-            if (i === row && j === coll) continue
-            if (coll < 0 || coll >= board[0].length) continue
-
-            // update the model
-            var currCell = currRow[coll]
-            if (!currCell.isShown) {
-                currCell.isShown = true
-                gGame.shownCount++
-            }
-            // update the dom
-            var elCell = document.querySelector(`.cell-${row}-${coll}`)
-            elCell.innerText = currCell.minesAroundCount
-        }
-    }
-}
-
-function checkGameOver() {
-    if (gGame.isOn === false) {
-        console.log('lose!');
-        clearInterval(gClock)
-
-        for (var i = 0; i < gBoard.length; i++) {
-            for (var j = 0; j < gBoard.length; j++) {
-
-                if (gBoard[i][j].isMine) {
-                    // update the model
-                    gBoard[i][j].isShown = true
-                    // update the dom
-                    var ellTd = document.querySelector(`.cell-${i}-${j}`)
-                    ellTd.innerText = MINE
-                }
-            }
-        }
-    } else if (gGame.markedCount + gGame.shownCount
-         === gLevel.SIZE ** 2) {
-        console.log('win!')
-        gGame.isOn = false
-        clearInterval(gClock)
-    }
-
+function getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min + 1) + min)
 }
