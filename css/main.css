@@ -1,0 +1,78 @@
+body{
+    text-align: center;
+    background: linear-gradient(90deg, rgb(133, 207, 244), rgb(4, 107, 233));
+    /* background: url("img/mine-Sweeper.jpg"); */
+    margin: 0;
+}
+h1{
+    text-align: center;
+    background-color: lightseagreen;
+    padding: 10px;
+    margin-top: 0;
+    border-bottom: 8px solid rgb(2, 80, 76);
+}
+table{
+    text-align: center;
+    margin: auto;
+}
+
+td{
+    border: 1px solid black;
+    text-align: center;
+    background: linear-gradient(rgb(177, 177, 177), rgb(85, 85, 84));
+    width:25px;
+    height:25px;
+    font-size:large;
+}
+
+
+.hide{
+    display: none;
+}
+
+.difficult {
+    border: 2px solid black;
+    width: 300px;
+    height: 40px;
+    line-height: 40px;
+    margin: auto;
+    border-radius: 10px;
+    background: linear-gradient(90deg, green, yellow, red);
+    color: rgb(0, 0, 0);
+}
+
+.level {
+    width: 100px;
+    margin: auto;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border: 1px solid black;
+    border-radius: 15px;
+    font-size: larger;
+}
+
+.level:hover {
+    background-color: rgb(177, 203, 226);
+    cursor: pointer;
+}
+.easy {
+    background-color: rgb(42, 158, 42);
+}
+.medium {
+    background-color: rgb(209, 209, 33);
+}
+.hard {
+    background-color: rgb(213, 68, 68);
+}
+
+.clock{
+    width: 150px;
+    height: 50px;
+    background-color: coral;
+    text-align: center;
+    border-radius: 0 15px 0 15px;
+    border: 2px solid rgb(231, 230, 230);
+    margin: auto;
+    margin-top: 15px;
+    line-height: 50px;
+}
