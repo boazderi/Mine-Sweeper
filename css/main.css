@@ -1,7 +1,7 @@
 body{
     text-align: center;
     background: linear-gradient(90deg, rgb(133, 207, 244), rgb(4, 107, 233));
-    /* background: url("img/mine-Sweeper.jpg"); */
+    /* background: url("/Users/boazderi/Dropbox/CaSep22-ExcerciseSubmission/Class1/Boaz Deri/Day13-14-Sprint1/1st Delivery - Wednesday 2030/img/mine-Sweeper.jpg"); */
     margin: 0;
 }
 h1{
@@ -56,13 +56,13 @@ td{
     cursor: pointer;
 }
 .easy {
-    background-color: rgb(42, 158, 42);
+    background: linear-gradient(rgb(145, 241, 145), rgb(42, 158, 42));
 }
 .medium {
-    background-color: rgb(209, 209, 33);
+    background: linear-gradient(rgb(242, 242, 129), rgb(162, 191, 2));
 }
 .hard {
-    background-color: rgb(213, 68, 68);
+    background: linear-gradient( rgba(227, 142, 142, 0.94), rgb(200, 45, 45));
 }
 
 .clock{
