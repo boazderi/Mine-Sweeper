@@ -13,45 +13,9 @@ h1 {
     border-bottom: 8px solid rgb(2, 80, 76);
 }
 
-table {
-    text-align: center;
-    margin: auto;
-}
-
-td {
-    border: 1px solid black;
-    text-align: center;
-    background: linear-gradient(rgb(177, 177, 177), rgb(85, 85, 84));
-    width: 25px;
-    height: 25px;
-    font-size: large;
-}
-
-.selected {
-    cursor: not-allowed;
-}
-
-.stats-container {
-    display: flex;
-    justify-content:space-between;
-    margin: auto;
-    width: 70%;
-    height: 140px;
-    border-radius: 25%;
-    border: 6px double black;
-    margin-top: 20px;
-}
-
-.status {
-    margin-top: 35px;
-    height: 65px;
-    width: 65px;
-    font-size: 50px;
-    background: fixed;
-}
-
-.hide {
-    display: none;
+.game-container {
+    border: 4px double whitesmoke;
+    border-radius: 10%;
 }
 
 .difficult {
@@ -60,6 +24,7 @@ td {
     height: 40px;
     line-height: 40px;
     margin: auto;
+    margin-top: 10px;
     border-radius: 10px;
     background: linear-gradient(90deg, green, yellow, red);
     color: rgb(0, 0, 0);
@@ -92,30 +57,64 @@ td {
     background: linear-gradient(rgba(227, 142, 142, 0.94), rgb(200, 45, 45));
 }
 
-.clock {
+table {
+    text-align: center;
+    margin: auto;
+}
+
+td {
+    border: 1px solid black;
+    text-align: center;
+    background: linear-gradient(45deg, rgb(223, 241, 245), rgb(131, 227, 247));
+    width: 25px;
+    height: 25px;
+    font-size: large;
+}
+
+.selected {
+    cursor: not-allowed;
+}
+
+.status {
+    margin-top: 10px;
+    height: 50px;
+    width: 50px;
+    font-size: 35px;
+    background: fixed;
+}
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin: auto;
+    width: 70%;
+    height: 100px;
+    border-radius: 25%;
+    border: 4px double black;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+
+.item {
     width: 25%;
     height: 55px;
+    text-align: center;
     background-color: rgba(12, 85, 128, 0.301);
-    text-align: left;
     border-radius: 40%;
-    border: 6px double rgb(231, 230, 230);
-    margin-top: 35px;
-    margin-left: 10px;
+    border: 4px double rgb(231, 230, 230);
+    margin-top: 15px;
     line-height: 55px;
-    font-size: 34px;
+    font-size: 24px;
+}
+
+.clock {
+    margin-left: 10px;
 }
 
 .miners-left {
-    width: 20%;
-    height: 45px;
-    background-color: rgba(12, 85, 128, 0.301);
-    text-align: left;
-    border-radius: 40%;
-    border: 6px double rgb(231, 230, 230);
-    font-size: 25px;
-    margin-top: 40px;
     margin-right: 10px;
-    line-height: 45px;
+    
 }
 
 .zero {
@@ -123,12 +122,22 @@ td {
 }
 
 .mine-clicked {
-    background-color: crimson;
+    background-color: rgb(147, 13, 40);
 }
 
-.miners-span{
-    font-size: 22px;
+.miners-span {
+    text-align: center;
+    font-size: 20px;
 }
+.hide {
+    display: none;
+}
+
 .seconds {
-    font-size: 22px;
+    text-align: center;
+    font-size: 20px;
+}
+
+footer{
+    margin-top: 220px;
 }

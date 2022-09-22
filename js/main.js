@@ -6,7 +6,9 @@ var gBoardSize = 0
 var gBoard
 const FLAG = '🚩'
 const MINE = '💣'
-var gGamer = '😃'
+const GAMER = '😃'
+var gLife = '❤️'
+
 var elGamer = document.querySelector('.status')
 var gLevel = {
     SIZE: 4,
@@ -22,29 +24,30 @@ var gClockInterval
 const gElClock = document.querySelector('.clock')
 const gElSeconds = document.querySelector('.seconds')
 
-// mines marked counter
+// mines marked counter and lives elements
 const gEllMinersCount = document.querySelector('.miners-span')
-
+const gElLivesCount = document.querySelector('.live-span')
 
 // game status
 var gGame
 
 function initGame(boardSize, mines) {
-    // update elGamer for next restart
     gGame = {
         isOn: false,
         shownCount: 0,
         markedCount: 0,
-        secsPassed: 0
+        secsPassed: 0,
+        lives: 3
     }
+    gElLivesCount.innerText = gGame.lives
     gElSeconds.innerText = 0
     gEllMinersCount.innerText = mines
-    elGamer.innerText = gGamer
+    // update elGamer for next restart
+    elGamer.innerText = GAMER
     gLevel = {
         SIZE: boardSize,
         MINES: mines
     };
-    console.log('hello');
     buildBoard(gLevel)
     console.table(gBoard)
     gGame.isOn = true
@@ -90,8 +93,6 @@ function setMinesNegsCount(board) {
         for (var j = 0; j < board.length; j++) {
             var cellMinesNegs = countActiveNegs(board, i, j)
             board[i][j].minesAroundCount = cellMinesNegs ? cellMinesNegs : 0
-            // console.log('cellMinesNegs',cellMinesNegs);
-
         }
     }
 }
@@ -106,21 +107,28 @@ function cellClicked(elCell, i, j, ev) {
     }
     // update the model
     var currCell = gBoard[i][j]
+    if (currCell.isShown && !currCell.isMine || 
+        !gGame.isOn) return
     // check right click
     if (ev.button === 2) {
         currCell.isMarked = true
         cellMarked(elCell)
     } else {
-        // if noot right click:
+        // if not right click:
         // update the model
         currCell.isShown = true
-        elCell.classList.add('selected')
         // update the dom
+        elCell.classList.add('selected')
         if (currCell.isMine) {
             elCell.innerText = MINE
-            // console.log('elCell', elCell);
-            elCell.style.background = "crimson"
-            gGame.isOn = false
+            // update the model
+            gGame.lives--
+            // update the dom
+            gElLivesCount.innerText = gGame.lives
+            elCell.style.background = "rgb(147, 13, 40)"
+            if (gGame.lives === 0) {
+                gGame.isOn = false
+            }
         } else if (!currCell.minesAroundCount) {
             gGame.shownCount++
             expandShown(gBoard, elCell, i, j)
@@ -130,13 +138,13 @@ function cellClicked(elCell, i, j, ev) {
         else {
             gGame.shownCount++
             elCell.innerText = currCell.minesAroundCount
+            paintBoard(gBoard)
         }
     }
     checkGameOver()
 }
 
 function handleFirstClickMine(elCell, row, coll) {
-    console.log('handleFirstClickMine');
     var noMineCells = []
 
     for (var i = 0; i < gBoard.length; i++) {
@@ -163,7 +171,6 @@ function cellMarked(elCell) {
 }
 
 function expandShown(board, elCell, i, j) {
-    console.log('expandShown');
     if (board[i][j].minesAroundCount === 0) {
         elCell.innerText = ''
         elCell.classList.add('zero')
@@ -197,10 +204,9 @@ function expandShown(board, elCell, i, j) {
 }
 
 function checkGameOver() {
-    if (gGame.isOn === false) {
-        console.log('lose!');
-        elGamer.innerText = '🤯'
+    if (!gGame.isOn) {
         clearInterval(gClockInterval)
+        elGamer.innerText = '🤯'
 
         for (var i = 0; i < gBoard.length; i++) {
             for (var j = 0; j < gBoard.length; j++) {
@@ -214,8 +220,8 @@ function checkGameOver() {
                 }
             }
         }
-    } else if (gLevel.SIZE ** 2 - gGame.shownCount === gLevel.MINES) {
-        console.log('win!')
+    } else if (gLevel.SIZE ** 2 - gGame.shownCount ===
+        gLevel.MINES && gLevel.MINES === gGame.markedCount) {
         elGamer.innerText = '😎'
         gGame.isOn = false
         clearInterval(gClockInterval)

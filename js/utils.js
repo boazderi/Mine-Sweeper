@@ -9,7 +9,8 @@ function renderBoard(mat) {
         for (var j = 0; j < mat[0].length; j++) {
 
             const className = 'cell cell-' + i + '-' + j
-            strHTML += `<td class="${className}" onmousedown="cellClicked(this, ${i}, ${j}, event)" cellMarked(elCell)></td>`
+            strHTML += `<td class="${className}" 
+            onmousedown="cellClicked(this, ${i}, ${j}, event)"></td>`
         }
         strHTML += '</tr>'
     }
@@ -38,14 +39,64 @@ function countActiveNegs(board, rowIdx, colIdx) {
             if (board[i][j].isMine) count++
         }
     }
-    // console.log('count',count);
     return count
 }
 
-function runClock(){
+function runClock() {
     gStartTimer = Date.now()
-    gClockInterval = setInterval(function (){
+    gClockInterval = setInterval(function () {
         gGame.secsPassed = (Math.floor((Date.now() - gStartTimer) / 1000))
         gElSeconds.innerText = gGame.secsPassed
-    },1000)
+    }, 1000)
+}
+
+function paintBoard(board) {
+
+    for (var i = 0; i < board.length; i++) {
+
+        for (var j = 0; j < board.length; j++) {
+            var currCell = board[i][j]
+            var elCell = document.querySelector(`.cell-${i}-${j}`)
+            if (currCell.isMine || !elCell.innerText) continue
+
+            var numPaint = choosePaint(elCell.innerText)
+            elCell.style.color = numPaint
+        }
+    }
+}
+
+
+function choosePaint(num) {
+    var currNum = +num
+    var numColor
+    switch (currNum) {
+        case 1:
+            numColor = "blue"
+            break;
+        case 2:
+            numColor = "green"
+            break;
+        case 3:
+            numColor = "red"
+            break;
+        case 4:
+            numColor = "darkblue"
+            break;
+        case 5:
+            numColor = "indigo"
+            break;
+        case 6:
+            numColor = "darkcyan"
+            break;
+        case 7:
+            numColor = "black"
+            break;
+        case 8:
+            numColor = "darkgray"
+            break;
+
+        default:
+            break;
+    }
+    return numColor
 }

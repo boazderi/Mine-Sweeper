@@ -11,6 +11,7 @@
 
 <body onload="initGame(4, 2)">
     <h1>Mine Sweeper</h1>
+    <div class="game-container">
     <h2 class="difficult">Choose difficult:</h2>
     <div>
         <div class="easy level" onclick="initGame(4, 2)">Beginner </div>
@@ -19,11 +20,16 @@
     </div>
     <div class="board-container">
     </div>
+    <button class="status" data-board="4" data-mines="2"> 😃</button>
     <div class="stats-container">
-        <div class="clock">⏱ <span class="seconds"></span></div>
-        <button class="status" data-board="4" data-mines="2"> 😃</button>
-        <div class="miners-left">💣 <span class="miners-span"></span></div>
+        <div class="clock item">⏱: <span class="seconds"></span></div>
+        <div class="lives item">❤️: <span class="live-span">3</span></div>
+        <div class="miners-left item">💣: <span class="miners-span"></span></div>
     </div>
+</div>
+<footer>
+    This site developed by Boaz Deri, find me here <a href="https://www.facebook.com/boazderi/">boazderi on facebook</a>
+</footer>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
 </body>
