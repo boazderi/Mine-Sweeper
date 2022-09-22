@@ -32,6 +32,9 @@ const gElLivesCount = document.querySelector('.live-span')
 var gGame
 
 function initGame(boardSize, mines) {
+    if(gClockInterval){
+        clearInterval(gClockInterval)
+    }
     gGame = {
         isOn: false,
         shownCount: 0,
@@ -138,9 +141,9 @@ function cellClicked(elCell, i, j, ev) {
         else {
             gGame.shownCount++
             elCell.innerText = currCell.minesAroundCount
-            paintBoard(gBoard)
         }
     }
+    paintBoard(gBoard)
     checkGameOver()
 }
 

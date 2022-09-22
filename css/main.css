@@ -65,7 +65,7 @@ table {
 td {
     border: 1px solid black;
     text-align: center;
-    background: linear-gradient(45deg, rgb(223, 241, 245), rgb(131, 227, 247));
+    background: linear-gradient(45deg, rgb(198, 228, 234), rgb(115, 222, 243));
     width: 25px;
     height: 25px;
     font-size: large;
@@ -118,7 +118,7 @@ td {
 }
 
 .zero {
-    background: linear-gradient(45deg, rgb(24, 24, 205), rgb(91, 118, 255));
+    background: linear-gradient(45deg, rgb(49, 78, 182), rgb(125, 175, 246));
 }
 
 .mine-clicked {
