@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,19 +8,24 @@
     <link rel="stylesheet" href="css/main.css">
     <title>Mine Sweeper</title>
 </head>
+
 <body onload="initGame(4, 2)">
     <h1>Mine Sweeper</h1>
-    <h2 class="difficult" >Choose difficult:</h2>
+    <h2 class="difficult">Choose difficult:</h2>
     <div>
         <div class="easy level" onclick="initGame(4, 2)">Beginner </div>
-        <div class="medium level" onclick="initGame(8, 8)">Medium</div>
-        <div class="hard level" onclick="initGame(12, 8)">Expert</div>
+        <div class="medium level" onclick="initGame(8, 14)">Medium</div>
+        <div class="hard level" onclick="initGame(12, 32)">Expert</div>
     </div>
-    <div class="board-container" >
+    <div class="board-container">
     </div>
-    <h2 class="clock hide">Clock: <span class="seconds"></span></h3>
-    <div class="hide status"></div>
+    <div class="stats-container">
+        <div class="clock">⏱ <span class="seconds"></span></div>
+        <button class="status" data-board="4" data-mines="2"> 😃</button>
+        <div class="miners-left">💣 <span class="miners-span"></span></div>
+    </div>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
 </body>
+
 </html>

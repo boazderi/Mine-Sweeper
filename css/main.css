@@ -1,38 +1,62 @@
-body{
+body {
     text-align: center;
-    background: linear-gradient(90deg, rgb(133, 207, 244), rgb(4, 107, 233));
-    /* background: url("/Users/boazderi/Dropbox/CaSep22-ExcerciseSubmission/Class1/Boaz Deri/Day13-14-Sprint1/1st Delivery - Wednesday 2030/img/mine-Sweeper.jpg"); */
+    background: linear-gradient(90deg, rgb(150, 209, 238), rgb(7, 95, 203));
+    /* background-image: src("img/flag.png"); */
     margin: 0;
 }
-h1{
+
+h1 {
     text-align: center;
     background-color: lightseagreen;
     padding: 10px;
     margin-top: 0;
     border-bottom: 8px solid rgb(2, 80, 76);
 }
-table{
+
+table {
     text-align: center;
     margin: auto;
 }
 
-td{
+td {
     border: 1px solid black;
     text-align: center;
     background: linear-gradient(rgb(177, 177, 177), rgb(85, 85, 84));
-    width:25px;
-    height:25px;
-    font-size:large;
+    width: 25px;
+    height: 25px;
+    font-size: large;
 }
 
+.selected {
+    cursor: not-allowed;
+}
 
-.hide{
+.stats-container {
+    display: flex;
+    justify-content:space-between;
+    margin: auto;
+    width: 70%;
+    height: 140px;
+    border-radius: 25%;
+    border: 6px double black;
+    margin-top: 20px;
+}
+
+.status {
+    margin-top: 35px;
+    height: 65px;
+    width: 65px;
+    font-size: 50px;
+    background: fixed;
+}
+
+.hide {
     display: none;
 }
 
 .difficult {
     border: 2px solid black;
-    width: 300px;
+    width: 230px;
     height: 40px;
     line-height: 40px;
     margin: auto;
@@ -52,27 +76,59 @@ td{
 }
 
 .level:hover {
-    background-color: rgb(177, 203, 226);
+    background: rgb(177, 203, 226);
     cursor: pointer;
 }
+
 .easy {
     background: linear-gradient(rgb(145, 241, 145), rgb(42, 158, 42));
 }
+
 .medium {
     background: linear-gradient(rgb(242, 242, 129), rgb(162, 191, 2));
 }
+
 .hard {
-    background: linear-gradient( rgba(227, 142, 142, 0.94), rgb(200, 45, 45));
+    background: linear-gradient(rgba(227, 142, 142, 0.94), rgb(200, 45, 45));
 }
 
-.clock{
-    width: 150px;
-    height: 50px;
-    background-color: coral;
-    text-align: center;
-    border-radius: 0 15px 0 15px;
-    border: 2px solid rgb(231, 230, 230);
-    margin: auto;
-    margin-top: 15px;
-    line-height: 50px;
+.clock {
+    width: 25%;
+    height: 55px;
+    background-color: rgba(12, 85, 128, 0.301);
+    text-align: left;
+    border-radius: 40%;
+    border: 6px double rgb(231, 230, 230);
+    margin-top: 35px;
+    margin-left: 10px;
+    line-height: 55px;
+    font-size: 34px;
+}
+
+.miners-left {
+    width: 20%;
+    height: 45px;
+    background-color: rgba(12, 85, 128, 0.301);
+    text-align: left;
+    border-radius: 40%;
+    border: 6px double rgb(231, 230, 230);
+    font-size: 25px;
+    margin-top: 40px;
+    margin-right: 10px;
+    line-height: 45px;
+}
+
+.zero {
+    background: linear-gradient(45deg, rgb(24, 24, 205), rgb(91, 118, 255));
+}
+
+.mine-clicked {
+    background-color: crimson;
+}
+
+.miners-span{
+    font-size: 22px;
+}
+.seconds {
+    font-size: 22px;
 }

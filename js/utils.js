@@ -1,3 +1,5 @@
+'use strict'
+
 function renderBoard(mat) {
 
     var strHTML = '<table border="2"><tbody>'
@@ -42,9 +44,8 @@ function countActiveNegs(board, rowIdx, colIdx) {
 
 function runClock(){
     gStartTimer = Date.now()
-    gElClock.classList.remove('hide')
-    gClock = setInterval(function (){
-        gGame.secsPassed = (Math.floor((Date.now() - gStartTimer) / 1000)+'').padStart(2, 0)
+    gClockInterval = setInterval(function (){
+        gGame.secsPassed = (Math.floor((Date.now() - gStartTimer) / 1000))
         gElSeconds.innerText = gGame.secsPassed
     },1000)
 }
