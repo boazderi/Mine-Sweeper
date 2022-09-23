@@ -1,16 +1,22 @@
 body {
     text-align: center;
-    background: linear-gradient(90deg, rgb(150, 209, 238), rgb(7, 95, 203));
-    /* background-image: src("img/flag.png"); */
+    background-image: url(pawel-czerwinski-qIZMt-o2RIk-unsplash.jpg);
+    height: 100%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-blend-mode:color-burn;
     margin: 0;
 }
 
 h1 {
     text-align: center;
-    background-color: lightseagreen;
+    color: aliceblue;
+    font-size: 42px;
     padding: 10px;
     margin-top: 0;
-    border-bottom: 8px solid rgb(2, 80, 76);
+    border-bottom: 5px solid rgb(131, 190, 161);
 }
 
 .game-container {
@@ -31,44 +37,55 @@ h1 {
 }
 
 .level {
-    width: 100px;
+    width: 110px;
+    color: white;
+    height: 30px;
+    line-height: 30px;
     margin: auto;
-    margin-top: 5px;
-    margin-bottom: 5px;
-    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 2px solid rgb(140, 213, 246);
     border-radius: 15px;
-    font-size: larger;
+    font-size:x-large;
 }
 
 .level:hover {
-    background: rgb(177, 203, 226);
+    /* background: rgb(177, 203, 226); */
+    transition-duration: 2s;
     cursor: pointer;
+    width: 115px;
+    height: 35px;
+    padding: 5px;
+    line-height: 35px;
 }
 
 .easy {
-    background: linear-gradient(rgb(145, 241, 145), rgb(42, 158, 42));
+    background: linear-gradient(rgb(123, 232, 123), rgb(4, 127, 4));
 }
 
 .medium {
-    background: linear-gradient(rgb(242, 242, 129), rgb(162, 191, 2));
+    background: linear-gradient(rgb(220, 220, 66), rgb(108, 111, 6));
 }
 
 .hard {
-    background: linear-gradient(rgba(227, 142, 142, 0.94), rgb(200, 45, 45));
+    background: linear-gradient(rgba(232, 115, 115, 0.94), rgb(154, 16, 16));
 }
 
 table {
     text-align: center;
     margin: auto;
+    transition-duration: 700ms;
 }
 
 td {
     border: 1px solid black;
     text-align: center;
     background: linear-gradient(45deg, rgb(198, 228, 234), rgb(115, 222, 243));
-    width: 25px;
-    height: 25px;
-    font-size: large;
+    width: 30px;
+    height: 30px;
+    font-size:x-large;
+    font-weight: bold;
+    transition-duration: 250ms;
 }
 
 .selected {
@@ -90,7 +107,7 @@ td {
     width: 70%;
     height: 100px;
     border-radius: 25%;
-    border: 4px double black;
+    border: 4px double rgb(255, 255, 255);
     margin-top: 10px;
     margin-bottom: 20px;
 }
@@ -98,6 +115,7 @@ td {
 
 .item {
     width: 25%;
+    color: white;
     height: 55px;
     text-align: center;
     background-color: rgba(12, 85, 128, 0.301);
@@ -114,7 +132,7 @@ td {
 
 .miners-left {
     margin-right: 10px;
-    
+
 }
 
 .zero {
@@ -129,6 +147,7 @@ td {
     text-align: center;
     font-size: 20px;
 }
+
 .hide {
     display: none;
 }
@@ -138,6 +157,8 @@ td {
     font-size: 20px;
 }
 
-footer{
+footer {
+    color: aliceblue;
+    font-size:large;
     margin-top: 220px;
 }

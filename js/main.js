@@ -4,10 +4,11 @@
 
 var gBoardSize = 0
 var gBoard
+var gLife = '❤️'
 const FLAG = '🚩'
 const MINE = '💣'
 const GAMER = '😃'
-var gLife = '❤️'
+const AUDIOWIN = new Audio('sound/winning-sound.wav');
 
 var elGamer = document.querySelector('.status')
 var gLevel = {
@@ -18,6 +19,9 @@ elGamer.addEventListener("click", () => restart())
 // clock model
 var gStartTimer
 var gClockInterval
+
+// save the best times here:
+const theBestTime = document.querySelector('.bestTime')
 
 
 // clock elements
@@ -114,8 +118,7 @@ function cellClicked(elCell, i, j, ev) {
         !gGame.isOn) return
     // check right click
     if (ev.button === 2) {
-        currCell.isMarked = true
-        cellMarked(elCell)
+        cellMarked(elCell, currCell)
     } else {
         // if not right click:
         // update the model
@@ -166,11 +169,19 @@ function handleFirstClickMine(elCell, row, coll) {
 }
 
 
-function cellMarked(elCell) {
-    gGame.markedCount++
-    elCell.innerText = FLAG
-    if (gLevel.MINES - gGame.markedCount >= 0) gEllMinersCount.
+function cellMarked(elCell, currCell) {
+    if(!currCell.isMarked) {
+        currCell.isMarked = true
+        gGame.markedCount++
+        elCell.innerText = FLAG
+        if (gLevel.MINES - gGame.markedCount >= 0) gEllMinersCount.
         innerText = gLevel.MINES - gGame.markedCount
+    } else{
+        currCell.isMarked = false
+        gGame.markedCount--
+        elCell.innerText = ''
+        gEllMinersCount.innerText = gLevel.MINES - gGame.markedCount
+    }
 }
 
 function expandShown(board, elCell, i, j) {
@@ -226,6 +237,7 @@ function checkGameOver() {
     } else if (gLevel.SIZE ** 2 - gGame.shownCount ===
         gLevel.MINES && gLevel.MINES === gGame.markedCount) {
         elGamer.innerText = '😎'
+        AUDIOWIN.play()
         gGame.isOn = false
         clearInterval(gClockInterval)
     }
