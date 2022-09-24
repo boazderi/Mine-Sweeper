@@ -1,12 +1,11 @@
 body {
     text-align: center;
-    background-image: url(pawel-czerwinski-qIZMt-o2RIk-unsplash.jpg);
+    background-image: url(../img/background.jpg);
     height: 100%;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-blend-mode:color-burn;
     margin: 0;
 }
 
@@ -36,8 +35,13 @@ h1 {
     color: rgb(0, 0, 0);
 }
 
+.levels-container{
+    display: flex;
+    justify-content:space-around;
+}
 .level {
-    width: 110px;
+    width: 20%;
+    min-width:max-content;
     color: white;
     height: 30px;
     line-height: 30px;
@@ -64,12 +68,33 @@ h1 {
 }
 
 .medium {
-    background: linear-gradient(rgb(220, 220, 66), rgb(108, 111, 6));
+    background: linear-gradient(rgb(180, 180, 57), rgb(108, 111, 6));
 }
 
 .hard {
     background: linear-gradient(rgba(232, 115, 115, 0.94), rgb(154, 16, 16));
 }
+.hint{
+    color: white;
+    font-size: larger;
+    border: 1px solid white;
+    margin: 5px;
+    width: max-content;
+    border-radius: 5px;
+    padding: 3px;
+}
+
+.hint-span{
+    color: white;
+    font-size: larger;
+}
+
+.hint-btn{
+    background:fixed;
+    font-size: larger;
+    margin: 2px;
+}
+
 
 table {
     text-align: center;
@@ -87,6 +112,10 @@ td {
     font-weight: bold;
     transition-duration: 250ms;
 }
+td:hover{
+    background: linear-gradient(45deg, rgb(162, 212, 220), rgb(69, 191, 215));
+
+}
 
 .selected {
     cursor: not-allowed;
@@ -98,6 +127,15 @@ td {
     width: 50px;
     font-size: 35px;
     background: fixed;
+}
+
+.bestTime{
+    font-size:xx-large;
+    color: white;
+}
+
+.bestTime-spn{
+    color: rgb(246, 72, 72);
 }
 
 .stats-container {
@@ -115,10 +153,10 @@ td {
 
 .item {
     width: 25%;
-    color: white;
+    color: rgb(255, 255, 255);
     height: 55px;
     text-align: center;
-    background-color: rgba(12, 85, 128, 0.301);
+    background-color: rgba(36, 117, 164, 0.393);
     border-radius: 40%;
     border: 4px double rgb(231, 230, 230);
     margin-top: 15px;
@@ -132,7 +170,7 @@ td {
 
 .miners-left {
     margin-right: 10px;
-
+    color: rgb(240, 248, 255);
 }
 
 .zero {
@@ -162,3 +200,15 @@ footer {
     font-size:large;
     margin-top: 220px;
 }
+
+a:link {
+    color: rgb(24, 155, 173);
+    background-color: transparent;
+    text-decoration: none;
+  }
+  
+  a:visited {
+    color: rgb(223, 58, 58);
+    background-color: transparent;
+    text-decoration: none;
+  }

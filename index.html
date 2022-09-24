@@ -12,25 +12,41 @@
 <body onload="initGame(4, 2)">
     <h1><em>Mine Sweeper</em></h1>
     <div class="game-container">
-    <h2 class="difficult">Choose difficult:</h2>
-    <div>
-        <div class="easy level" onclick="initGame(4, 2)">Beginner </div>
-        <div class="medium level" onclick="initGame(8, 14)">Medium</div>
-        <div class="hard level" onclick="initGame(12, 32)">Expert</div>
+        <h2 class="difficult">Choose difficult:</h2>
+        <div class="levels-container">
+            <div class="easy level" onclick="initGame(4, 2)">Beginner </div>
+            <div class="medium level" onclick="initGame(8, 14)">Medium</div>
+            <div class="hard level" onclick="initGame(12, 32)">Expert</div>
+        </div>
+        <div class="main-container">
+            <div class="options-left">
+                <div class="hint"><button class="hint-btn" onclick="gGame.isHint = true">💡</button>:<span
+                        class="hint-span">3</span></div>
+                <div class="safe-click"></div>
+                <div class="undo"></div>
+                <div class="mega-hint"></div>
+            </div>
+            <div class="board-container"></div>
+            <div class="options-right">
+                <div class="dark-mode"></div>
+                <div class="seven-boom"></div>
+                <div class="manually-create-mode"></div>
+                <div class="exterminator"></div>
+            </div>
+        </div>
+        <button class="status" data-board="4" data-mines="2"> 😃</button>
+        <div class="bestTime hide">Best time: <span class="bestTime-spn"></span> seconds!</div>
+        <div class="stats-container">
+            <div class="clock item">⏱: <span class="seconds"></span></div>
+            <div class="lives item">❤️: <span class="live-span">3</span></div>
+            <div class="miners-left item">💣: <span class="miners-span"></span></div>
+        </div>
     </div>
-    <div class="board-container">
-    </div>
-    <button class="status" data-board="4" data-mines="2"> 😃</button>
-    <div class="bestTime"></div>
-    <div class="stats-container">
-        <div class="clock item">⏱: <span class="seconds"></span></div>
-        <div class="lives item">❤️: <span class="live-span">3</span></div>
-        <div class="miners-left item">💣: <span class="miners-span"></span></div>
-    </div>
-</div>
-<footer>
-    This site developed by Boaz Deri, find me here <a href="https://www.facebook.com/boazderi/">boazderi on facebook</a>
-</footer>
+    <footer>
+        &#9400; This site developed by Boaz Deri , find me here <a href="https://www.facebook.com/boazderi/">Boaz Deri
+            on facebook</a>
+    </footer>
+    <script src="js/hints.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
 </body>

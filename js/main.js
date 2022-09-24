@@ -4,11 +4,13 @@
 
 var gBoardSize = 0
 var gBoard
+var gHintElements
 var gLife = '❤️'
 const FLAG = '🚩'
 const MINE = '💣'
 const GAMER = '😃'
-const AUDIOWIN = new Audio('sound/winning-sound.wav');
+const HINT = '💡'
+const AUDIOWIN = new Audio('sound/winning-sound.wav')
 
 var elGamer = document.querySelector('.status')
 var gLevel = {
@@ -21,8 +23,8 @@ var gStartTimer
 var gClockInterval
 
 // save the best times here:
-const theBestTime = document.querySelector('.bestTime')
-
+const gElBestTime = document.querySelector('.bestTime')
+const gElBestTimeSpn = document.querySelector('.bestTime-spn')
 
 // clock elements
 const gElClock = document.querySelector('.clock')
@@ -32,11 +34,15 @@ const gElSeconds = document.querySelector('.seconds')
 const gEllMinersCount = document.querySelector('.miners-span')
 const gElLivesCount = document.querySelector('.live-span')
 
+// hint element
+const gEllHint = document.querySelector('.hint-span')
+
 // game status
 var gGame
 
 function initGame(boardSize, mines) {
-    if(gClockInterval){
+
+    if (gClockInterval) {
         clearInterval(gClockInterval)
     }
     gGame = {
@@ -44,8 +50,11 @@ function initGame(boardSize, mines) {
         shownCount: 0,
         markedCount: 0,
         secsPassed: 0,
-        lives: 3
+        lives: 3,
+        hints: 3,
+        isHint: false
     }
+    gEllHint.innerText = gGame.hints
     gElLivesCount.innerText = gGame.lives
     gElSeconds.innerText = 0
     gEllMinersCount.innerText = mines
@@ -56,7 +65,6 @@ function initGame(boardSize, mines) {
         MINES: mines
     };
     buildBoard(gLevel)
-    console.table(gBoard)
     gGame.isOn = true
     // disable right click - don't show the 'context menu' window
     var ellBoard = document.querySelector('.board-container')
@@ -105,6 +113,12 @@ function setMinesNegsCount(board) {
 }
 
 function cellClicked(elCell, i, j, ev) {
+    // if isHint
+    if (gGame.isHint && gGame.hints) {
+        handleHint(i, j)
+        gGame.isHint = false
+        return
+    }
     // start the clock if first click
     if (gGame.shownCount === 0 && gGame.markedCount === 0) {
         runClock()
@@ -114,17 +128,19 @@ function cellClicked(elCell, i, j, ev) {
     }
     // update the model
     var currCell = gBoard[i][j]
-    if (currCell.isShown && !currCell.isMine || 
+    if (currCell.isShown && !currCell.isMine ||
         !gGame.isOn) return
     // check right click
     if (ev.button === 2) {
         cellMarked(elCell, currCell)
     } else {
         // if not right click:
+        if (currCell.isShown) return
         // update the model
         currCell.isShown = true
         // update the dom
         elCell.classList.add('selected')
+
         if (currCell.isMine) {
             elCell.innerText = MINE
             // update the model
@@ -150,6 +166,7 @@ function cellClicked(elCell, i, j, ev) {
     checkGameOver()
 }
 
+
 function handleFirstClickMine(elCell, row, coll) {
     var noMineCells = []
 
@@ -170,13 +187,13 @@ function handleFirstClickMine(elCell, row, coll) {
 
 
 function cellMarked(elCell, currCell) {
-    if(!currCell.isMarked) {
+    if (!currCell.isMarked) {
         currCell.isMarked = true
         gGame.markedCount++
         elCell.innerText = FLAG
         if (gLevel.MINES - gGame.markedCount >= 0) gEllMinersCount.
-        innerText = gLevel.MINES - gGame.markedCount
-    } else{
+            innerText = gLevel.MINES - gGame.markedCount
+    } else {
         currCell.isMarked = false
         gGame.markedCount--
         elCell.innerText = ''
@@ -237,6 +254,21 @@ function checkGameOver() {
     } else if (gLevel.SIZE ** 2 - gGame.shownCount ===
         gLevel.MINES && gLevel.MINES === gGame.markedCount) {
         elGamer.innerText = '😎'
+        var bestTime = localStorage.getItem('bestTime')
+        if (!bestTime) {
+            localStorage.setItem('bestTime', +gElSeconds.innerText)
+            gElBestTimeSpn.innerText = localStorage.getItem('bestTime')
+        }
+        else if (bestTime > gElSeconds.innerText) {
+            // update local storage
+            localStorage.setItem('bestTime', +gElSeconds.innerText)
+            // update the dom
+            gElBestTimeSpn.innerText = localStorage.getItem('bestTime')
+        }
+        else{
+            gElBestTime.innerText = "It's not the best time, you can be better!"
+        }
+        gElBestTime.classList.remove('hide')
         AUDIOWIN.play()
         gGame.isOn = false
         clearInterval(gClockInterval)
@@ -244,6 +276,7 @@ function checkGameOver() {
 }
 
 function restart() {
+    gElBestTime.classList.add('hide')
     clearInterval(gClockInterval)
     initGame(gLevel.SIZE, gLevel.MINES)
 }
