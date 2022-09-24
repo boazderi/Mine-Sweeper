@@ -37,6 +37,10 @@ const gElLivesCount = document.querySelector('.live-span')
 // hint element
 const gEllHint = document.querySelector('.hint-span')
 
+// body element
+const gEllBody = document.querySelector('body')
+
+
 // game status
 var gGame
 
@@ -52,7 +56,8 @@ function initGame(boardSize, mines) {
         secsPassed: 0,
         lives: 3,
         hints: 3,
-        isHint: false
+        isHint: false,
+        isDark: true
     }
     gEllHint.innerText = gGame.hints
     gElLivesCount.innerText = gGame.lives

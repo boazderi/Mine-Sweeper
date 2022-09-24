@@ -1,4 +1,4 @@
-
+'use strict'
 function handleHint(rowIdx, colIdx) {
     // this function take cell element and idx's, create array
     // of cells and show for 1 second 

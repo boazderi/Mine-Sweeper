@@ -20,7 +20,7 @@
         </div>
         <div class="main-container">
             <div class="options-left">
-                <div class="hint"><button class="hint-btn" onclick="gGame.isHint = true">💡</button>:<span
+                <div class="hint opt-el"><button class="hint-btn" onclick="gGame.isHint = true">💡</button>:<span
                         class="hint-span">3</span></div>
                 <div class="safe-click"></div>
                 <div class="undo"></div>
@@ -28,7 +28,7 @@
             </div>
             <div class="board-container"></div>
             <div class="options-right">
-                <div class="dark-mode"></div>
+                <div class="dark-mode opt-el"> <button class="mode-btn" onclick="changeMode()">Light mode</button></div>
                 <div class="seven-boom"></div>
                 <div class="manually-create-mode"></div>
                 <div class="exterminator"></div>
@@ -49,6 +49,7 @@
     <script src="js/hints.js"></script>
     <script src="js/utils.js"></script>
     <script src="js/main.js"></script>
+    <script src="js/dark-mode.js"></script>
 </body>
 
 </html>
