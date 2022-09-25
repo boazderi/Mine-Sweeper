@@ -12,12 +12,12 @@ const GAMER = '😃'
 const HINT = '💡'
 const AUDIOWIN = new Audio('sound/winning-sound.wav')
 
-var elGamer = document.querySelector('.status')
+var gElGamer = document.querySelector('.status')
 var gLevel = {
     SIZE: 4,
     MINES: 2
 }
-elGamer.addEventListener("click", () => restart())
+gElGamer.addEventListener("click", () => restart())
 // clock model
 var gStartTimer
 var gClockInterval
@@ -40,6 +40,8 @@ const gEllHint = document.querySelector('.hint-span')
 // body element
 const gEllBody = document.querySelector('body')
 
+// 
+const gEllSafeCounter = document.querySelector('.safe-counter')
 
 // game status
 var gGame
@@ -56,15 +58,16 @@ function initGame(boardSize, mines) {
         secsPassed: 0,
         lives: 3,
         hints: 3,
+        safeClicks: 3,
         isHint: false,
-        isDark: true
+        isDark: true,
+        isSevenBoom: false
     }
     gEllHint.innerText = gGame.hints
     gElLivesCount.innerText = gGame.lives
     gElSeconds.innerText = 0
-    gEllMinersCount.innerText = mines
-    // update elGamer for next restart
-    elGamer.innerText = GAMER
+    gEllSafeCounter.innerText = gGame.safeClicks
+    // update Game for next restart
     gLevel = {
         SIZE: boardSize,
         MINES: mines
@@ -74,20 +77,22 @@ function initGame(boardSize, mines) {
     // disable right click - don't show the 'context menu' window
     var ellBoard = document.querySelector('.board-container')
     ellBoard.addEventListener("contextmenu", e => e.preventDefault())
-
+    
 }
 
 
-function buildBoard(level) {
+function buildBoard(level = gLevel) {
     //create nums matrix in the table, and array of numbers
     var boardSize = level.SIZE
-    var minesAmount = level.MINES
+    var minesAmount = !gGame.isSevenBoom ? level.MINES :
+    Math.floor(level.SIZE ** 2 / 7)
     gBoard = []
     var cells = []
+    console.log(gGame.isSevenBoom);
     for (var i = 0; i < boardSize; i++) {
         gBoard[i] = []
         var row = gBoard[i]
-
+        
         for (var j = 0; j < boardSize; j++) {
             var cell = {
                 isMine: false,
@@ -99,10 +104,20 @@ function buildBoard(level) {
             cells.push(cell)
         }
     }
-    for (var i = 0; i < minesAmount; i++) {
-        var cellMine = cells.splice((getRandomIntInclusive(0, cells.length - 1)), 1)[0]
-        cellMine.isMine = true
+    if (!gGame.isSevenBoom) {
+        for (var i = 0; i < minesAmount; i++) {
+            var cellMine = cells.splice((getRandomIntInclusive(0, cells.length - 1)), 1)[0]
+            cellMine.isMine = true
+        }
+    } else {
+        console.log('seven boom');
+        sevenBoom(cells)
     }
+    // update the model
+    gLevel.MINES = minesAmount
+    // update the dom
+    gEllMinersCount.innerText = minesAmount
+    
     setMinesNegsCount(gBoard)
     renderBoard(gBoard)
 }
@@ -127,6 +142,7 @@ function cellClicked(elCell, i, j, ev) {
     // start the clock if first click
     if (gGame.shownCount === 0 && gGame.markedCount === 0) {
         runClock()
+        // if first click is mine:
         if (gBoard[i][j].isMine) {
             handleFirstClickMine(elCell, i, j)
         }
@@ -142,6 +158,7 @@ function cellClicked(elCell, i, j, ev) {
         // if not right click:
         if (currCell.isShown) return
         // update the model
+
         currCell.isShown = true
         // update the dom
         elCell.classList.add('selected')
@@ -167,6 +184,8 @@ function cellClicked(elCell, i, j, ev) {
             elCell.innerText = currCell.minesAroundCount
         }
     }
+    console.log('gGame.shownCount', gGame.shownCount);
+    console.log('gGame.markedCount', gGame.markedCount);
     paintBoard(gBoard)
     checkGameOver()
 }
@@ -207,6 +226,10 @@ function cellMarked(elCell, currCell) {
 }
 
 function expandShown(board, elCell, i, j) {
+    if (board[i][j].isMarked) {
+        board[i][j].isMarked = false
+        gGame.markedCount--
+    }
     if (board[i][j].minesAroundCount === 0) {
         elCell.innerText = ''
         elCell.classList.add('zero')
@@ -242,7 +265,7 @@ function expandShown(board, elCell, i, j) {
 function checkGameOver() {
     if (!gGame.isOn) {
         clearInterval(gClockInterval)
-        elGamer.innerText = '🤯'
+        gElGamer.innerText = '🤯'
 
         for (var i = 0; i < gBoard.length; i++) {
             for (var j = 0; j < gBoard.length; j++) {
@@ -258,7 +281,7 @@ function checkGameOver() {
         }
     } else if (gLevel.SIZE ** 2 - gGame.shownCount ===
         gLevel.MINES && gLevel.MINES === gGame.markedCount) {
-        elGamer.innerText = '😎'
+        gElGamer.innerText = '😎'
         var bestTime = localStorage.getItem('bestTime')
         if (!bestTime) {
             localStorage.setItem('bestTime', +gElSeconds.innerText)
@@ -270,11 +293,11 @@ function checkGameOver() {
             // update the dom
             gElBestTimeSpn.innerText = localStorage.getItem('bestTime')
         }
-        else{
+        else {
             gElBestTime.innerText = "It's not the best time, you can be better!"
         }
         gElBestTime.classList.remove('hide')
-        AUDIOWIN.play()
+        // AUDIOWIN.play()
         gGame.isOn = false
         clearInterval(gClockInterval)
     }
@@ -284,4 +307,5 @@ function restart() {
     gElBestTime.classList.add('hide')
     clearInterval(gClockInterval)
     initGame(gLevel.SIZE, gLevel.MINES)
+    gElGamer.innerText = GAMER
 }

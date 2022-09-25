@@ -20,36 +20,38 @@
         </div>
         <div class="main-container">
             <div class="options-left">
-                <div class="hint opt-el"><button class="hint-btn" onclick="gGame.isHint = true">💡</button>:<span
-                        class="hint-span">3</span></div>
-                <div class="safe-click"></div>
+                <div class="hint opt-el"><button class="opt-btn" onclick="gGame.isHint = true">💡:<span
+                    class="hint-span">3</span></button></div>
+                <div class="safe-click opt-el"><button class="opt-btn" onclick="safeClick()">Safe clicks: <span class="safe-counter"></span></button></div>
                 <div class="undo"></div>
                 <div class="mega-hint"></div>
             </div>
             <div class="board-container"></div>
             <div class="options-right">
-                <div class="dark-mode opt-el"> <button class="mode-btn" onclick="changeMode()">Light mode</button></div>
-                <div class="seven-boom"></div>
+                <div class="dark-mode opt-el"> <button class="opt-btn mode-btn" onclick="changeMode()">Light mode</button></div>
+                <div class="seven-boom opt-el"><button class="opt-btn" onclick="gGame.isSevenBoom = true; buildBoard() "> 7 Boom!</button></div>
                 <div class="manually-create-mode"></div>
                 <div class="exterminator"></div>
             </div>
         </div>
-        <button class="status" data-board="4" data-mines="2"> 😃</button>
+        <button class="status" data-board="4" data-mines="2"> 
+            <img src="img/recursmile.jpeg" width="55px" height="55px" alt="😃">
+        </button>
         <div class="bestTime hide">Best time: <span class="bestTime-spn"></span> seconds!</div>
         <div class="stats-container">
-            <div class="clock item">⏱: <span class="seconds"></span></div>
-            <div class="lives item">❤️: <span class="live-span">3</span></div>
-            <div class="miners-left item">💣: <span class="miners-span"></span></div>
+            <div class="clock stats-item">⏱: <span class="seconds"></span></div>
+            <div class="lives stats-item">❤️: <span class="live-span">3</span></div>
+            <div class="miners-left stats-item">💣: <span class="miners-span"></span></div>
         </div>
     </div>
     <footer>
         &#9400; This site developed by Boaz Deri , find me here <a href="https://www.facebook.com/boazderi/">Boaz Deri
             on facebook</a>
     </footer>
-    <script src="js/hints.js"></script>
     <script src="js/utils.js"></script>
+    <script src="js/left-options.js"></script>
+    <script src="js/right-options.js"></script>
     <script src="js/main.js"></script>
-    <script src="js/dark-mode.js"></script>
 </body>
 
 </html>
