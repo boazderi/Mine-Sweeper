@@ -52,11 +52,26 @@ function changeMode() {
 
 function sevenBoom(cells) {
     console.log('sevenBoom function');
-    console.log('cells',cells);
+    console.log('cells', cells);
     for (var i = 0; i <= cells.length; i++) {
-        if ((i+1) % 7 === 0) {
+        if ((i + 1) % 7 === 0) {
             var cellMine = cells[i]
             cellMine.isMine = true
         }
+    }
+}
+
+function manualMode(landMines) {
+    console.log('manual function');
+    if (landMines < gLevel.MINES) {
+        gElManualText.innerText = `Please choose ${gLevel.MINES -
+            landMines} cells of mines`
+        console.log('landMines', landMines);
+    } else {
+        console.log('start the game');
+        setMinesNegsCount(gBoard)
+        renderBoard(gBoard)
+        gGame.isManual = false
+        gElManualText.innerText = ""
     }
 }

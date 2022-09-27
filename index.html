@@ -14,33 +14,34 @@
     <div class="game-container">
         <h2 class="difficult">Choose difficult:</h2>
         <div class="levels-container">
-            <div class="easy level" onclick="initGame(4, 2)">Beginner </div>
-            <div class="medium level" onclick="initGame(8, 14)">Medium</div>
-            <div class="hard level" onclick="initGame(12, 32)">Expert</div>
+    <div class="easy level" onclick="initGame(4, 2); gElGamer.innerText = GAMER ">Beginner </div>
+            <div class="medium level" onclick="initGame(8, 14); gElGamer.innerText = GAMER">Medium</div>
+            <div class="hard level" onclick="initGame(12, 32); gElGamer.innerText = GAMER">Expert</div>
         </div>
         <div class="main-container">
             <div class="options-left">
                 <div class="hint opt-el"><button class="opt-btn" onclick="gGame.isHint = true">💡:<span
                     class="hint-span">3</span></button></div>
                 <div class="safe-click opt-el"><button class="opt-btn" onclick="safeClick()">Safe clicks: <span class="safe-counter"></span></button></div>
-                <div class="undo"></div>
+                <div class="undo opt-el"><button class="opt-btn" onclick="undo()">Undo</button></div>
                 <div class="mega-hint"></div>
             </div>
             <div class="board-container"></div>
             <div class="options-right">
                 <div class="dark-mode opt-el"> <button class="opt-btn mode-btn" onclick="changeMode()">Light mode</button></div>
                 <div class="seven-boom opt-el"><button class="opt-btn" onclick="gGame.isSevenBoom = true; buildBoard() "> 7 Boom!</button></div>
-                <div class="manually-create-mode"></div>
+                <div class="manually-create-mode opt-el"><button class="opt-btn" onclick="gGame.isManual = true; buildBoard() ">Manual mode</button></div>
                 <div class="exterminator"></div>
             </div>
         </div>
+        <div class="manual-text"></div>
         <button class="status" data-board="4" data-mines="2"> 
             <img src="img/recursmile.jpeg" width="55px" height="55px" alt="😃">
         </button>
         <div class="bestTime hide">Best time: <span class="bestTime-spn"></span> seconds!</div>
         <div class="stats-container">
-            <div class="clock stats-item">⏱: <span class="seconds"></span></div>
             <div class="lives stats-item">❤️: <span class="live-span">3</span></div>
+            <div class="clock stats-item">⏱: <span class="seconds"></span></div>
             <div class="miners-left stats-item">💣: <span class="miners-span"></span></div>
         </div>
     </div>

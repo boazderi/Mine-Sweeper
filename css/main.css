@@ -144,6 +144,11 @@ img{
     margin: auto;
 }
 
+.manual-text {
+    font-size: large;
+    font-weight: bold;
+}
+
 .status {
     margin: auto;
     margin-top: 3%;
@@ -202,7 +207,7 @@ img{
 }
 
 .mine-clicked {
-    background-color: rgb(147, 13, 40);
+    background: rgb(147, 13, 40);
 }
 
 .miners-span {
