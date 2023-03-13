@@ -121,7 +121,7 @@ td {
     transition-duration: 250ms;
 }
 
-td:hover {
+td:hover:not(.selected) {
     background: linear-gradient(45deg, rgb(105, 181, 217), rgb(39, 151, 216));
     cursor: pointer;
 }
@@ -133,10 +133,7 @@ td:hover {
     width: 85px;
     margin: 2px;
     font-size: large;
-}
-
-.selected {
-    cursor: not-allowed;
+    cursor: pointer;
 }
 
 img{
@@ -159,6 +156,10 @@ img{
     background: rgba(151, 172, 255, 0.407);
     /* border: 2px solid white; */
     border-radius: 15px;
+}
+
+.status:hover{
+    cursor: pointer;
 }
 
 .bestTime {
