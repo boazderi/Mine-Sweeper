@@ -21,7 +21,6 @@ function changeMode() {
             gElOptBtns[i].style.color = "black"
         }
         for (var i = 0; i < gElStatsItems.length; i++) {
-            console.log('gElStatsItems[i]', gElStatsItems[i]);
             gElStatsItems[i].style.border = "4px double black"
         }
         for (var i = 0; i < gElOpts.length; i++) {
@@ -41,7 +40,6 @@ function changeMode() {
             gElOptBtns[i].style.color = "white"
         }
         for (var i = 0; i < gElStatsItems.length; i++) {
-            console.log('gElStatsItems[i]', gElStatsItems[i]);
             gElStatsItems[i].style.border = "4px double white"
         }
         for (var i = 0; i < gElOpts.length; i++) {
@@ -51,8 +49,6 @@ function changeMode() {
 }
 
 function sevenBoom(cells) {
-    console.log('sevenBoom function');
-    console.log('cells', cells);
     for (var i = 0; i <= cells.length; i++) {
         if ((i + 1) % 7 === 0) {
             var cellMine = cells[i]
@@ -62,13 +58,10 @@ function sevenBoom(cells) {
 }
 
 function manualMode(landMines) {
-    console.log('manual function');
     if (landMines < gLevel.MINES) {
         gElManualText.innerText = `Please choose ${gLevel.MINES -
             landMines} cells of mines`
-        console.log('landMines', landMines);
     } else {
-        console.log('start the game');
         setMinesNegsCount(gBoard)
         renderBoard(gBoard)
         gGame.isManual = false

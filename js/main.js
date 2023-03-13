@@ -110,7 +110,6 @@ function buildBoard(level = gLevel) {
         }
     }
     if (gGame.isSevenBoom) {
-        console.log('seven boom');
         sevenBoom(cells)
     } else if (gGame.isManual) {
         manualMode(gLevel.landMines) 

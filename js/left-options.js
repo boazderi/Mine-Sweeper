@@ -13,8 +13,6 @@ function handleHint(rowIdx, colIdx) {
             // update the model
             var currCell = gBoard[i][j]
             if (!currCell.isShown && !currCell.isMarked) {
-                // currCell.isShown = true
-                // gGame.shownCount++
                 // update the dom
                 var elCell = document.querySelector(`.cell-${i}-${j}`)
                 if (currCell.isMine) elCell.innerText = MINE
@@ -106,5 +104,4 @@ function undo(){
         gEllMinersCount.
             innerText = gLevel.MINES - gGame.markedCount
     }
-    // cellClicked(gGame.moves)
 }
