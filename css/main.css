@@ -123,7 +123,7 @@ td {
 
 td:hover {
     background: linear-gradient(45deg, rgb(105, 181, 217), rgb(39, 151, 216));
-
+    cursor: pointer;
 }
 
 .opt-btn {
