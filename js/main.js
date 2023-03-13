@@ -308,7 +308,7 @@ function checkGameOver() {
             localStorage.setItem('bestTime', +gElSeconds.innerText)
             gElBestTimeSpn.innerText = localStorage.getItem('bestTime')
         }
-        else if (bestTime > gElSeconds.innerText) {
+        else if (bestTime > +gElSeconds.innerText) {
             // update local storage
             localStorage.setItem('bestTime', +gElSeconds.innerText)
             // update the dom
